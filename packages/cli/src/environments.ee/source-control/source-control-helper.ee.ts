@@ -235,6 +235,6 @@ export function isWorkflowModified(
 ): boolean {
 	return (
 		remote.versionId !== local.versionId ||
-		(remote.parentFolderId !== undefined && remote.parentFolderId !== local.parentFolderId)
+		remote.parentFolderId !== local.parentFolderId
 	);
 }

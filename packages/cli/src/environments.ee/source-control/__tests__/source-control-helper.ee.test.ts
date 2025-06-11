@@ -292,8 +292,8 @@ describe('isWorkflowModified', () => {
 		expect(isWorkflowModified(local, remote)).toBe(false);
 	});
 
-	it('should not consider it modified when remote parent folder ID is undefined', () => {
-		const local = createWorkflowVersion();
+	it('should not consider it modified when both parent folder IDs are undefined', () => {
+		const local = createWorkflowVersion({ parentFolderId: undefined });
 		const remote = createWorkflowVersion({ parentFolderId: undefined });
 
 		expect(isWorkflowModified(local, remote)).toBe(false);
@@ -311,5 +311,12 @@ describe('isWorkflowModified', () => {
 		const remote = createWorkflowVersion({ parentFolderId: null });
 
 		expect(isWorkflowModified(local, remote)).toBe(false);
+	});
+
+	it('should detect modifications when local parent folder ID is defined but remote is undefined', () => {
+		const local = createWorkflowVersion({ parentFolderId: 'folder1' });
+		const remote = createWorkflowVersion({ parentFolderId: undefined });
+
+		expect(isWorkflowModified(local, remote)).toBe(true);
 	});
 });
